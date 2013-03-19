@@ -41,11 +41,11 @@ ol.geom2.PointCollection = function(buf, opt_dim) {
 ol.geom2.PointCollection.pack =
     function(unpackedPoints, opt_capacity, opt_dim) {
   var n = unpackedPoints.length;
-  var capacity = goog.isDef(opt_capacity) ? opt_capacity : n;
-  goog.asserts.assert(capacity >= n);
   var dim = goog.isDef(opt_dim) ? opt_dim :
       n > 0 ? unpackedPoints[0].length : 2;
-  var arr = new Array(capacity * dim);
+  var capacity = goog.isDef(opt_capacity) ? opt_capacity : n * dim;
+  goog.asserts.assert(capacity >= n * dim);
+  var arr = new Array(capacity);
   var arrIndex = 0;
   var i, j, point;
   for (i = 0; i < n; ++i) {

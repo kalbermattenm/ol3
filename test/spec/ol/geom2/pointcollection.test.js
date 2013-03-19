@@ -12,13 +12,13 @@ describe('ol.geom2.PointCollection', function() {
     });
 
     it('packs an empty array with a capacity', function() {
-      var pc = ol.geom2.PointCollection.pack([], 2);
+      var pc = ol.geom2.PointCollection.pack([], 4);
       expect(pc.buf.getArray()).to.equalArray([NaN, NaN, NaN, NaN]);
       expect(pc.dim).to.be(2);
     });
 
     it('packs an empty array with a capacity and a dimension', function() {
-      var pc = ol.geom2.PointCollection.pack([], 4, 2);
+      var pc = ol.geom2.PointCollection.pack([], 8, 2);
       expect(pc.buf.getArray()).to.equalArray(
           [NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN]);
       expect(pc.dim).to.be(2);
@@ -37,7 +37,7 @@ describe('ol.geom2.PointCollection', function() {
     });
 
     it('can pack multiple points with a capacity', function() {
-      var pc = ol.geom2.PointCollection.pack([[0, 1], [2, 3], [4, 5]], 4);
+      var pc = ol.geom2.PointCollection.pack([[0, 1], [2, 3], [4, 5]], 8);
       expect(pc.buf.getArray()).to.equalArray([0, 1, 2, 3, 4, 5, NaN, NaN]);
       expect(pc.dim).to.be(2);
     });
@@ -132,7 +132,7 @@ describe('ol.geom2.PointCollection', function() {
 
     var pc;
     beforeEach(function() {
-      pc = ol.geom2.PointCollection.pack([[0, 1], [2, 3]], 4);
+      pc = ol.geom2.PointCollection.pack([[0, 1], [2, 3]], 8);
     });
 
     describe('add', function() {
@@ -233,7 +233,7 @@ describe('ol.geom2.PointCollection', function() {
   describe('usage example', function() {
 
     it('works as expected', function() {
-      var pc = ol.geom2.PointCollection.pack([[0, 1], [2, 3], [4, 5]], 4);
+      var pc = ol.geom2.PointCollection.pack([[0, 1], [2, 3], [4, 5]], 8);
       expect(pc.buf.getArray()).to.equalArray([0, 1, 2, 3, 4, 5, NaN, NaN]);
       expect(pc.unpack()).to.have.length(3);
       var point = pc.get(2);

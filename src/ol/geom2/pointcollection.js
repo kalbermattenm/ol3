@@ -33,6 +33,18 @@ ol.geom2.PointCollection = function(buf, opt_dim) {
 
 
 /**
+ * @param {number} capacity Capacity.
+ * @param {number=} opt_dim Dimension.
+ * @return {ol.geom2.PointCollection} Point collection.
+ */
+ol.geom2.PointCollection.createEmpty = function(capacity, opt_dim) {
+  var dim = goog.isDef(opt_dim) ? opt_dim : 2;
+  var buf = new ol.structs.Buffer(new Array(capacity * dim), 0);
+  return new ol.geom2.PointCollection(buf, dim);
+};
+
+
+/**
  * @param {Array.<ol.geom2.Point>} unpackedPoints Unpacked points.
  * @param {number=} opt_capacity Capacity.
  * @param {number=} opt_dim Dimension.

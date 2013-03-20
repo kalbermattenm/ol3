@@ -3,6 +3,22 @@ goog.provide('ol.test.geom2.PointCollection');
 
 describe('ol.geom2.PointCollection', function() {
 
+  describe('createEmpty', function() {
+
+    it('creates an empty instance with the specified capacity', function() {
+      var pc = ol.geom2.PointCollection.createEmpty(16);
+      expect(pc.getCount()).to.be(0);
+      expect(pc.buf.getArray()).to.have.length(32);
+    });
+
+    it('can create empty collections for higher dimensions', function() {
+      var pc = ol.geom2.PointCollection.createEmpty(16, 3);
+      expect(pc.getCount()).to.be(0);
+      expect(pc.buf.getArray()).to.have.length(48);
+    });
+
+  });
+
   describe('pack', function() {
 
     it('packs an empty array', function() {

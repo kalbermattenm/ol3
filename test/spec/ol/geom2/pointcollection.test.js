@@ -110,6 +110,14 @@ describe('ol.geom2.PointCollection', function() {
 
     });
 
+    describe('getCount', function() {
+
+      it('returns 0', function() {
+        expect(pc.getCount()).to.be(0);
+      });
+
+    });
+
     describe('getExtent', function() {
 
       it('returns an empty extent', function() {
@@ -154,6 +162,14 @@ describe('ol.geom2.PointCollection', function() {
 
       it('returns the expected value for the second point', function() {
         expect(pc.get(2)).to.equalArray([2, 3]);
+      });
+
+    });
+
+    describe('getCount', function() {
+
+      it('returns the expected value', function() {
+        expect(pc.getCount()).to.be(2);
       });
 
     });
@@ -215,6 +231,14 @@ describe('ol.geom2.PointCollection', function() {
         pc.remove(0);
       });
 
+      describe('getCount', function() {
+
+        it('returns the expected value', function() {
+          expect(pc.getCount()).to.be(1);
+        });
+
+      });
+
       describe('unpack', function() {
 
         it('returns the expected value', function() {
@@ -236,15 +260,18 @@ describe('ol.geom2.PointCollection', function() {
       var pc = ol.geom2.PointCollection.pack([[0, 1], [2, 3], [4, 5]], 8);
       expect(pc.buf.getArray()).to.equalArray([0, 1, 2, 3, 4, 5, NaN, NaN]);
       expect(pc.unpack()).to.have.length(3);
+      expect(pc.getCount()).to.be(3);
       var point = pc.get(2);
       expect(point).to.equalArray([2, 3]);
       pc.remove(2);
       expect(pc.buf.getArray()).to.equalArray([0, 1, NaN, NaN, 4, 5, NaN, NaN]);
       expect(pc.unpack()).to.have.length(2);
+      expect(pc.getCount()).to.be(2);
       point = [6, 7];
       expect(pc.add(point)).to.be(2);
       expect(pc.buf.getArray()).to.equalArray([0, 1, 6, 7, 4, 5, NaN, NaN]);
       expect(pc.unpack()).to.have.length(3);
+      expect(pc.getCount()).to.be(3);
       expect(pc.buf.getDirtySet().getArray()).to.equalArray([2, 4]);
     });
 

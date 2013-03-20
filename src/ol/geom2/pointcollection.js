@@ -85,6 +85,14 @@ ol.geom2.PointCollection.prototype.get = function(offset) {
 
 
 /**
+ * @return {number} Count.
+ */
+ol.geom2.PointCollection.prototype.getCount = function() {
+  return this.buf.getCount() / this.dim;
+};
+
+
+/**
  * @return {ol.Extent} Extent.
  */
 ol.geom2.PointCollection.prototype.getExtent = function() {
@@ -124,7 +132,7 @@ ol.geom2.PointCollection.prototype.set = function(offset, point) {
  */
 ol.geom2.PointCollection.prototype.unpack = function() {
   var dim = this.dim;
-  var n = this.buf.getCount() / dim;
+  var n = this.getCount();
   var points = new Array(n);
   var pointsIndex = 0;
   var bufArr = this.buf.getArray();

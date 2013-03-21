@@ -154,9 +154,11 @@ describe('ol.geom2.PointCollection', function() {
 
   describe('with a partially populated instance', function() {
 
-    var pc;
+    var dirtySet, pc;
     beforeEach(function() {
+      dirtySet = new ol.structs.IntegerSet();
       pc = ol.geom2.PointCollection.pack([[0, 1], [2, 3]], 8);
+      pc.buf.addDirtySet(dirtySet);
     });
 
     describe('add', function() {
@@ -224,7 +226,7 @@ describe('ol.geom2.PointCollection', function() {
         pc.set(2, [4, 5]);
         expect(pc.buf.getArray()).to.equalArray(
             [0, 1, 4, 5, NaN, NaN, NaN, NaN]);
-        expect(pc.buf.getDirtySet().getArray()).to.equalArray([2, 4]);
+        expect(dirtySet.getArray()).to.equalArray([2, 4]);
       });
 
     });
@@ -274,6 +276,8 @@ describe('ol.geom2.PointCollection', function() {
 
     it('works as expected', function() {
       var pc = ol.geom2.PointCollection.pack([[0, 1], [2, 3], [4, 5]], 8);
+      var dirtySet = new ol.structs.IntegerSet();
+      pc.buf.addDirtySet(dirtySet);
       expect(pc.buf.getArray()).to.equalArray([0, 1, 2, 3, 4, 5, NaN, NaN]);
       expect(pc.unpack()).to.have.length(3);
       expect(pc.getCount()).to.be(3);
@@ -288,7 +292,7 @@ describe('ol.geom2.PointCollection', function() {
       expect(pc.buf.getArray()).to.equalArray([0, 1, 6, 7, 4, 5, NaN, NaN]);
       expect(pc.unpack()).to.have.length(3);
       expect(pc.getCount()).to.be(3);
-      expect(pc.buf.getDirtySet().getArray()).to.equalArray([2, 4]);
+      expect(dirtySet.getArray()).to.equalArray([2, 4]);
     });
 
   });
@@ -298,3 +302,4 @@ describe('ol.geom2.PointCollection', function() {
 
 goog.require('ol.geom2.PointCollection');
 goog.require('ol.structs.Buffer');
+goog.require('ol.structs.IntegerSet');
